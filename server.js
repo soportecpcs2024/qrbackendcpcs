@@ -1,4 +1,3 @@
-// backend code
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -21,9 +20,26 @@ const messages = {
   '4': 'Nos vemos',
 };
 
+// Ruta para servir HTML con el mensaje
 app.get('/message/:id', (req, res) => {
   const message = messages[req.params.id] || 'Mensaje no encontrado';
-  res.json({ message });
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mensaje</title>
+        <style>
+            body { text-align: center; margin-top: 50px; }
+            h2 { font-size: 24px; }
+        </style>
+    </head>
+    <body>
+        <h2>${message}</h2>
+    </body>
+    </html>
+  `);
 });
 
 app.listen(port, () => {
