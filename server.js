@@ -1,12 +1,13 @@
+// backend code
 const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = 5000;
 
-// Configurar CORS para permitir solicitudes desde http://localhost:5173
+// Configurar CORS para permitir solicitudes desde https://leadpagesqrcpcs.onrender.com
 const corsOptions = {
-  origin: 'http://localhost:5173', // URL de tu frontend
-  methods: 'GET', // Métodos HTTP permitidos (puedes agregar más si es necesario)
+  origin: 'https://leadpagesqrcpcs.onrender.com', // URL de tu frontend
+  methods: 'GET', // Métodos HTTP permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
 };
 
