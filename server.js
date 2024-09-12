@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const fetch = require('node-fetch'); // Asegúrate de instalar node-fetch con `npm install node-fetch`
 
 const app = express();
 const port = 5000;
@@ -22,6 +21,9 @@ app.get('/product/:id', async (req, res) => {
   const apiUrl = `https://backend-m7iv.onrender.com/api/units/${productId}`;
 
   try {
+    // Importar dinámicamente 'node-fetch'
+    const { default: fetch } = await import('node-fetch');
+
     const response = await fetch(apiUrl);
     if (!response.ok) throw new Error('Network response was not ok');
     const data = await response.json();
