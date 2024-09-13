@@ -1,12 +1,17 @@
 const express = require('express');
 const cors = require('cors');
-const axios = require('axios'); // Utilizaremos Axios para hacer solicitudes HTTP
-const app = express();
-const port = 5000;
+const axios = require('axios');
+const dotenv = require('dotenv');
 
-// Configurar CORS para permitir solicitudes desde https://leadpagesqrcpcs.onrender.com
+// Configurar dotenv para cargar las variables de entorno desde .env
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 5000; // Usa la variable de entorno PORT o 5000 como predeterminado
+
+// Configurar CORS para permitir solicitudes desde el frontend especificado en las variables de entorno
 const corsOptions = {
-  origin: 'https://leadpagesqrcpcs.onrender.com', // URL de tu frontend
+  origin: process.env.FRONTEND_URL, // URL del frontend desde las variables de entorno
   methods: 'GET', // Métodos HTTP permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
 };
@@ -20,7 +25,7 @@ app.get('/message/:id', async (req, res) => {
   
   try {
     // Hacer solicitud a la API para obtener los detalles de la unidad
-    const response = await axios.get(`https://backend-m7iv.onrender.com/api/units/${idUnidad}`);
+    const response = await axios.get(`${process.env.BACKEND_API_URL}/${idUnidad}`); // Usa la URL del backend desde las variables de entorno
     const unit = response.data;
 
     // Obtener la información específica del producto y la ubicación
