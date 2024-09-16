@@ -40,6 +40,7 @@ app.get('/message/:id', async (req, res) => {
     const ubicacion = unit['location'];
     const nombre_ubicacion = ubicacion['nombre'];
     const direccion = ubicacion['direccion'];
+    const responsable = ubicacion['recibido_por'];
     const estado_ubicacion = ubicacion['estado'];
     
     const estado_producto = unit['estado'];
@@ -69,6 +70,7 @@ app.get('/message/:id', async (req, res) => {
               
               <img src="${imagen}" alt="Imagen del Producto">
               <p><strong>Ubicación:</strong> ${direccion}</p>
+              <p><strong>Responsable:</strong> ${responsable}</p>
                
               
           </div>
