@@ -36,13 +36,13 @@ app.get('/message/:id', async (req, res) => {
     const modelo = producto['model'];
     const precio = producto['price'];
     const imagen = producto['image']['filePath'];
-    
+
     const ubicacion = unit['location'];
     const nombre_ubicacion = ubicacion['nombre'];
     const direccion = ubicacion['direccion'];
     const responsable = ubicacion['recibido_por'];
     const estado_ubicacion = ubicacion['estado'];
-    
+
     const estado_producto = unit['estado'];
 
     // Renderizar la información en el HTML de respuesta
@@ -57,24 +57,22 @@ app.get('/message/:id', async (req, res) => {
               body { text-align: center; margin-top: 20px; font-family: Arial, sans-serif; }
               .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
               h2 { font-size: 24px; margin-bottom: 10px; }
-              p { font-size: 18px; margin: 5px 0; al }
+              p { font-size: 18px; margin: 5px 0; }
               img { max-width: 100%; height: auto; margin-top: 10px; }
           </style>
       </head>
       <body>
           <div class="container">
               <h2>Detalles de la Unidad</h2>
-               
               <p><strong>Producto:</strong> ${nombre_producto}</p>
               <p><strong>Marca:</strong> ${marca}</p>
-              
+               
               <img src="${imagen}" alt="Imagen del Producto">
               <p><strong>Ubicación:</strong> ${direccion}</p>
+              
               <p><strong>Responsable:</strong> ${responsable}</p>
-              <p>hola</p>
-              
-               
-              
+              <p><strong>Estado de Ubicación:</strong> ${estado_ubicacion}</p>
+              <p><strong>Estado del Producto:</strong> ${estado_producto}</p>
           </div>
       </body>
       </html>
