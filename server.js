@@ -71,6 +71,8 @@ app.get('/message/:id', async (req, res) => {
               <img src="${imagen}" alt="Imagen del Producto">
               <p><strong>Ubicación:</strong> ${direccion}</p>
               <p><strong>Responsable:</strong> ${responsable}</p>
+              <p>hola</p>
+              
                
               
           </div>
