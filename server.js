@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000; // Usa la variable de entorno PORT o 5000
 
 // Configurar CORS para permitir solicitudes desde el frontend especificado en las variables de entorno
 const corsOptions = {
-  origin: process.env.FRONTEND_URL, // URL del frontend desde las variables de entorno
+  origin: process.env.FRONTEND_URL || '*', // URL del frontend o '*' para permitir cualquier origen (útil para pruebas)
   methods: 'GET', // Métodos HTTP permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
 };
@@ -26,24 +26,30 @@ app.get('/message/:id', async (req, res) => {
   try {
     // Hacer solicitud a la API para obtener los detalles de la unidad
     const response = await axios.get(`${process.env.BACKEND_API_URL}/${idUnidad}`); // Usa la URL del backend desde las variables de entorno
+    
+    // Verificar si la solicitud fue exitosa
+    if (response.status !== 200) {
+      throw new Error(`Error en la respuesta de la API: ${response.statusText}`);
+    }
+
     const unit = response.data;
 
-    // Obtener la información específica del producto y la ubicación
-    const id_unidad = unit['_id'];
-    const producto = unit['id_producto'];
-    const nombre_producto = producto['name'];
-    const marca = producto['brand'];
-    const modelo = producto['model'];
-    const precio = producto['price'];
-    const imagen = producto['image']['filePath'];
+    // Verificar si los campos esperados existen
+    const id_unidad = unit['_id'] || 'ID no disponible';
+    const producto = unit['id_producto'] || {};
+    const nombre_producto = producto['name'] || 'Nombre no disponible';
+    const marca = producto['brand'] || 'Marca no disponible';
+    const modelo = producto['model'] || 'Modelo no disponible';
+    const precio = producto['price'] || 'Precio no disponible';
+    const imagen = producto['image']?.['filePath'] || ''; // Maneja la posibilidad de que no exista imagen
 
-    const ubicacion = unit['location'];
-    const nombre_ubicacion = ubicacion['nombre'];
-    const direccion = ubicacion['direccion'];
-    const responsable = ubicacion['recibido_por'];
-    const estado_ubicacion = ubicacion['estado'];
+    const ubicacion = unit['location'] || {};
+    const nombre_ubicacion = ubicacion['nombre'] || 'Ubicación no disponible';
+    const direccion = ubicacion['direccion'] || 'Dirección no disponible';
+    const responsable = ubicacion['recibido_por'] || 'Responsable no disponible';
+    const estado_ubicacion = ubicacion['estado'] || 'Estado no disponible';
 
-    const estado_producto = unit['estado'];
+    const estado_producto = unit['estado'] || 'Estado del producto no disponible';
 
     // Renderizar la información en el HTML de respuesta
     res.send(`
@@ -66,20 +72,20 @@ app.get('/message/:id', async (req, res) => {
               <h2>Detalles de la Unidad</h2>
               <p><strong>Producto:</strong> ${nombre_producto}</p>
               <p><strong>Marca:</strong> ${marca}</p>
-               
-              <img src="${imagen}" alt="Imagen del Producto">
+              <p><strong>Modelo:</strong> ${modelo}</p>
+              <p><strong>Precio:</strong> ${precio}</p>
+              ${imagen ? `<img src="${imagen}" alt="Imagen del Producto">` : '<p>No hay imagen disponible</p>'}
               <p><strong>Ubicación:</strong> ${direccion}</p>
-              
               <p><strong>Responsable:</strong> ${responsable}</p>
               <p><strong>Estado de Ubicación:</strong> ${estado_ubicacion}</p>
               <p><strong>Estado del Producto:</strong> ${estado_producto}</p>
-              <p><strong>Id :</strong> ${id_unidad}</p>
+              <p><strong>ID de la Unidad:</strong> ${id_unidad}</p>
           </div>
       </body>
       </html>
     `);
   } catch (error) {
-    console.error('Error fetching data from API:', error);
+    console.error('Error fetching data from API:', error.message);
     res.status(500).send(`
       <!DOCTYPE html>
       <html lang="en">
@@ -97,6 +103,7 @@ app.get('/message/:id', async (req, res) => {
   }
 });
 
+// Iniciar el servidor
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
