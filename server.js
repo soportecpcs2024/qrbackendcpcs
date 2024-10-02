@@ -72,14 +72,13 @@ app.get('/message/:id', async (req, res) => {
               <h2>Detalles de la Unidad</h2>
               <p><strong>Producto:</strong> ${nombre_producto}</p>
               <p><strong>Marca:</strong> ${marca}</p>
-              <p><strong>Modelo:</strong> ${modelo}</p>
-              <p><strong>Precio:</strong> ${precio}</p>
+              
+              
               ${imagen ? `<img src="${imagen}" alt="Imagen del Producto">` : '<p>No hay imagen disponible</p>'}
               <p><strong>Ubicación:</strong> ${direccion}</p>
               <p><strong>Responsable:</strong> ${responsable}</p>
-              <p><strong>Estado de Ubicación:</strong> ${estado_ubicacion}</p>
-              <p><strong>Estado del Producto:</strong> ${estado_producto}</p>
-              <p><strong>ID de la Unidad:</strong> ${id_unidad}</p>
+              
+              <p><strong>Id :</strong> ${id_unidad}</p>
           </div>
       </body>
       </html>
