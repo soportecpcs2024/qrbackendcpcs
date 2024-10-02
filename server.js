@@ -73,6 +73,7 @@ app.get('/message/:id', async (req, res) => {
               <p><strong>Responsable:</strong> ${responsable}</p>
               <p><strong>Estado de Ubicación:</strong> ${estado_ubicacion}</p>
               <p><strong>Estado del Producto:</strong> ${estado_producto}</p>
+              <p><strong>Id :</strong> ${id_unidad}</p>
           </div>
       </body>
       </html>
