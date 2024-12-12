@@ -65,6 +65,7 @@ app.get('/message/:id', async (req, res) => {
               h2 { font-size: 24px; margin-bottom: 10px; }
               p { font-size: 14px; margin: 3px 0; }
               img { max-width: 80%; height: auto; margin-top: 10px; }
+              h4 { font-size: 14px; margin: 3px 0; }
           </style>
       </head>
       <body>
