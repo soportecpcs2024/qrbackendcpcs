@@ -79,6 +79,8 @@ app.get('/message/:id', async (req, res) => {
               <p><strong>Responsable:</strong> ${responsable}</p>
               
               <p><strong>Id :</strong> ${id_unidad}</p>
+
+               <h4>Propiedad <strong>CPCS</strong> </h4>
           </div>
       </body>
       </html>
