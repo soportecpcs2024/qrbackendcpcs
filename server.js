@@ -46,7 +46,7 @@ app.get('/message/:id', async (req, res) => {
     const ubicacion = unit['location'] || {};
     const nombre_ubicacion = ubicacion['nombre'] || 'Ubicación no disponible';
     const direccion = ubicacion['direccion'] || 'Dirección no disponible';
-    const responsable = ubicacion['recibido_por'] || 'Responsable no disponible';
+    const responsable = unit['recibido_por'] || 'Responsable no disponible';
     const estado_ubicacion = ubicacion['estado'] || 'Estado no disponible';
 
     const estado_producto = unit['estado'] || 'Estado del producto no disponible';
