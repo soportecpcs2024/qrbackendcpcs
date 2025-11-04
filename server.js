@@ -19,6 +19,10 @@ const corsOptions = {
 app.use(cors(corsOptions)); // Usar las opciones de CORS configuradas
 app.use(express.json());
 
+app.get('/', (req,  res) =>{
+  res.send('Backend QRD funcionando');
+})
+
 // Ruta para servir HTML con el mensaje basado en el id_unidad
 app.get('/message/:id', async (req, res) => {
   const idUnidad = req.params.id;
